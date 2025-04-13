@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <RootNamespace>Application.Domain</RootNamespace>
+        <AssemblyName>Application.Domain</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Domain\Domain.csproj" />
+        <ProjectReference Include="..\CQRS\CQRS.csproj" />
+        <!-- <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" /> -->
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    </ItemGroup>
+
+</Project>
