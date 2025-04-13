@@ -1,4 +1,4 @@
-using Application.Commons.Interfaces;
+using ChatApp.Application.Commons.Interfaces;
 using ChatApp.Infrastucture.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

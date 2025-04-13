@@ -1,7 +1,7 @@
 using ChatApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Commons.Interfaces
+namespace ChatApp.Application.Commons.Interfaces
 {
     public interface IApplicationDbContext
     {

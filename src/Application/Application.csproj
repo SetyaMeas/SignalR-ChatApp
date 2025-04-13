@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <RootNamespace>Application.Domain</RootNamespace>
-        <AssemblyName>Application.Domain</AssemblyName>
+        <RootNamespace>ChatApp.Application</RootNamespace>
+        <AssemblyName>ChatApp.Application</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
