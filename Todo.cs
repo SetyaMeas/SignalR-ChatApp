@@ -1,4 +1,4 @@
-// TODO: setup caching
+// TODO setup caching
 // TODO: setup email
 // TODO: setup cqrs pattern
 // TODO: setup password hashing

@@ -19,7 +19,9 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" />
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
         <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Newtonsoft.Json" />
     </ItemGroup>
 
 </Project>
