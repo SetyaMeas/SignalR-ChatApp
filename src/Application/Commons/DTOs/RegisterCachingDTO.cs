@@ -2,8 +2,8 @@ namespace ChatApp.Application.Commons.DTOs
 {
     public class RegisterCachingDTO
     {
-        public required string Email { get; set; }
-        public required string Password { get; set; }
-        public required string VerificationCode { get; set; }
+        public required string Email { get; init; }
+        public required string Password { get; init; }
+        public required string VerificationCode { get; init; }
     }
 }

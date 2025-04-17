@@ -1,4 +1,6 @@
 namespace CQRS
 {
-    public interface IEvent { }
+    public interface IEvent
+    {
+    }
 }

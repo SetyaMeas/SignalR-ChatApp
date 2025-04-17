@@ -1,6 +1,7 @@
 using ChatApp.Application.Commons.Interfaces;
 using ChatApp.Infrastucture.Cache;
 using ChatApp.Infrastucture.Persistence.Context;
+using FluentEmail.MailKitSmtp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             builder.Services.AddDbService(config);
             builder.Services.AddRedisService(config);
+            builder.Services.AddFluentEmailService(config);
             builder.Services.AddDIService();
         }
 
@@ -27,7 +29,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     config.GetConnectionString("SQL Server")
-                        ?? throw new ArgumentException("SQL Server connection string is missing")
+                        ?? throw new ArgumentException(
+                            "[ConnectionStrings Configuration Error] SQL Server connection is missing"
+                        )
                 )
             );
 
@@ -44,8 +48,57 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 option.Configuration =
                     config.GetConnectionString("Redis")
-                    ?? throw new ArgumentException("Redis connection string is missing");
+                    ?? throw new ArgumentException(
+                        "[ConnectionStrings Configuration Error] Redis connection is missing"
+                    );
             });
+            return services;
+        }
+
+        private static IServiceCollection AddFluentEmailService(
+            this IServiceCollection services,
+            IConfiguration configuration
+        )
+        {
+            services
+                .AddFluentEmail(
+                    configuration["Email:UserEmail"]
+                        ?? throw new ArgumentException(
+                            "[Email Configuration Error] UserEmail is missing"
+                        ),
+                    configuration["Email:UserName"]
+                        ?? throw new ArgumentException(
+                            "[Email Configuration Error] UserName is missing"
+                        )
+                )
+                .AddMailKitSender(
+                    new SmtpClientOptions
+                    {
+                        Server =
+                            configuration["Email:Server"]
+                            ?? throw new ArgumentException(
+                                "[Email Configuration Error] Server is missing"
+                            ),
+                        Port =
+                            configuration.GetValue<int?>("Email:Port")
+                            ?? throw new ArgumentException(
+                                "[Email Configuration Error] Port is missing"
+                            ),
+                        Password =
+                            configuration["Email:Password"]
+                            ?? throw new ArgumentException(
+                                "[Email Configuration Error] Password is missing"
+                            ),
+
+                        UseSsl =
+                            configuration.GetValue<bool?>("Email:UseSsl")
+                            ?? throw new ArgumentException(
+                                "[Email Configuration Error] UseSsl is missing"
+                            ),
+                        User = configuration["Email:UserEmail"],
+                        RequiresAuthentication = true,
+                    }
+                );
             return services;
         }
 
