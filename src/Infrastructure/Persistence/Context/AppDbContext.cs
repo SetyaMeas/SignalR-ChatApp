@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChatApp.Infrastucture.Persistence.Context
 {
-    internal class AppDbContext : DbContext, IApplicationDbContext
+    public class AppDbContext : DbContext, IApplicationDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }

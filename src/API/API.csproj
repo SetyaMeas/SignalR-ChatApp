@@ -14,9 +14,14 @@
         </PackageReference>
     </ItemGroup>
 
+    <PropertyGroup>
+        <RootNamespace>ChatApp.API</RootNamespace>
+        <AssemblyName>ChatApp.API</AssemblyName>
+    </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+        <ProjectReference Include="..\Application\Application.csproj" />
         <ProjectReference Include="..\CQRS\CQRS.csproj" />
     </ItemGroup>
 

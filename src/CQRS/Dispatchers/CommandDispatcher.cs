@@ -16,10 +16,13 @@ namespace CQRS
             CancellationToken cancellationToken = default
         )
         {
-            var handler = serviceProvider.GetRequiredService<
-                ICommandHandler<ICommand<TResult>, TResult>
-            >();
-            return handler.HandleAsync(command, cancellationToken);
+            var handlerType = typeof(ICommandHandler<,>).MakeGenericType(
+                command.GetType(),
+                typeof(TResult)
+            );
+
+            dynamic handler = serviceProvider.GetRequiredService(handlerType);
+            return handler.HandleAsync((dynamic)command, cancellationToken);
         }
     }
 }
