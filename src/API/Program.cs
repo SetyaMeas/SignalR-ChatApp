@@ -8,6 +8,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddControllers();
 
+builder.AddAPIServices();
 builder.AddInfrastructureServices(builder.Configuration);
 builder.AddApplicationServices();
 

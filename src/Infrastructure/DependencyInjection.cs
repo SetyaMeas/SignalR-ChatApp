@@ -1,4 +1,5 @@
 using ChatApp.Application.Commons.Interfaces;
+using ChatApp.Infrastucture.Auth;
 using ChatApp.Infrastucture.Cache;
 using ChatApp.Infrastucture.Persistence.Context;
 using FluentEmail.MailKitSmtp;
@@ -106,6 +107,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<ICachingRepository, CachingRepository>();
             services.AddSingleton<IRegisterCaching, RegisterCaching>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
             return services;
         }
     }

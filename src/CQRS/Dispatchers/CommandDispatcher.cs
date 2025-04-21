@@ -4,11 +4,11 @@ namespace CQRS
 {
     public class CommandDispatcher : ICommandDispatcher
     {
-        private readonly IServiceProvider serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
 
         public CommandDispatcher(IServiceProvider serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider;
         }
 
         public Task<TResult> DispatchAsync<TResult>(
@@ -21,7 +21,7 @@ namespace CQRS
                 typeof(TResult)
             );
 
-            dynamic handler = serviceProvider.GetRequiredService(handlerType);
+            dynamic handler = _serviceProvider.GetRequiredService(handlerType);
             return handler.HandleAsync((dynamic)command, cancellationToken);
         }
     }
