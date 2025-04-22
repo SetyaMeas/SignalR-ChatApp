@@ -1,12 +1,11 @@
 // TODO setup caching
 // TODO setup email
 // TODO setup cqrs pattern
-// TODO: global error handling
-// TODO: set up fluentvalidation
-// TODO: Filter Validation Attribute
+// TODO global error handling
+// TODO set up fluentvalidation
+// TODO Filter Validation Attribute
 // TODO setup password hashing
-// TODO: create repository for user and message
-
+// TODO: jwt
 // TODO: start build authentication feature
 
 /* <=> features */

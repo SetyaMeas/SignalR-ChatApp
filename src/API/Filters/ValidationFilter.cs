@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ChatApp.API.Filters
 {
+    /* use to validate argument with FluentValidation */
     public class ValidationFilter : ActionFilterAttribute
     {
         private readonly IServiceProvider _serviceProvider;
@@ -18,7 +19,6 @@ namespace ChatApp.API.Filters
             ActionExecutionDelegate next
         )
         {
-            System.Console.WriteLine("running");
             if (context.ActionArguments.Any())
             {
                 foreach (var argument in context.ActionArguments)

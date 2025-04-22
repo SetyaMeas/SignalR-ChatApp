@@ -20,6 +20,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+// Converts unhandled exceptions into Problem Details responses
+app.UseExceptionHandler();
+
+// Returns the Problem Details response for (empty) non-successful responses
+app.UseStatusCodePages();
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
