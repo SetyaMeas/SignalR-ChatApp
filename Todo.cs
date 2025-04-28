@@ -6,6 +6,7 @@
 // TODO Filter Validation Attribute
 // TODO setup password hashing
 // TODO: jwt
+// TODO: implement jwtprovider, user context
 // TODO: start build authentication feature
 
 /* <=> features */

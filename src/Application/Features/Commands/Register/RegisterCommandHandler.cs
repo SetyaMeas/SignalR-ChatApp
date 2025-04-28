@@ -1,4 +1,5 @@
 using ChatApp.Application.Commons.Interfaces;
+using ChatApp.Domain.Enums;
 using CQRS;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +8,15 @@ namespace ChatApp.Application.Features.Commands.Register
     public class RegisterCommandHandler : ICommandHandler<RegisterCommand, bool>
     {
         private readonly IApplicationDbContext _applicationDbContext;
+        private readonly ICookieService _cookieService;
 
-        public RegisterCommandHandler(IApplicationDbContext applicationDbContext)
+        public RegisterCommandHandler(
+            IApplicationDbContext applicationDbContext,
+            ICookieService cookieService
+        )
         {
             _applicationDbContext = applicationDbContext;
+            _cookieService = cookieService;
         }
 
         public async Task<bool> HandleAsync(
@@ -18,8 +24,11 @@ namespace ChatApp.Application.Features.Commands.Register
             CancellationToken cancellationToken = default
         )
         {
-            int totalUser = await _applicationDbContext.Users.CountAsync();
-            System.Console.WriteLine(totalUser);
+            _cookieService.Append(
+                CookieEnum.ACCESS_TOKEN,
+                "this is access token sir",
+                DateTime.UtcNow.AddMinutes(2)
+            );
             return true;
         }
     }

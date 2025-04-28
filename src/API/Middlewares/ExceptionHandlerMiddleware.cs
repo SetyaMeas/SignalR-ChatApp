@@ -51,7 +51,7 @@ namespace ChatApp.API.Middlewares
             httpContext.Response.StatusCode = status;
             httpContext.Response.ContentType = "application/problem+json";
 
-            await httpContext.Response.WriteAsJsonAsync(response);
+            await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
 
             return true;
         }

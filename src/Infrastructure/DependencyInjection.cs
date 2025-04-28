@@ -108,6 +108,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICachingRepository, CachingRepository>();
             services.AddSingleton<IRegisterCaching, RegisterCaching>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddSingleton<IJwtProvider, JwtProvider>();
+
+            services.AddScoped<ICookieService, CookieService>();
+            services.AddScoped<IUserContext, UserContext>();
             return services;
         }
     }

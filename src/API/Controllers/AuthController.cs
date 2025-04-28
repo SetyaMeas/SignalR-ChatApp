@@ -11,15 +11,23 @@ namespace ChatApp.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IQueryDispatcher _queryDispatcher;
 
-        public AuthController(ICommandDispatcher commandDispatcher)
+        public AuthController(
+            ICommandDispatcher commandDispatcher,
+            IQueryDispatcher queryDispatcher
+        )
         {
             _commandDispatcher = commandDispatcher;
+            _queryDispatcher = queryDispatcher;
         }
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilter))]
-        public async Task<IActionResult> Testing([FromBody] RegisterCommand cmd, CancellationToken ct)
+        public async Task<IActionResult> Testing(
+            [FromBody] RegisterCommand cmd,
+            CancellationToken ct
+        )
         {
             var me = await _commandDispatcher.DispatchAsync(cmd, ct);
             return Ok(cmd);
