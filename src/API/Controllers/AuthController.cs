@@ -1,4 +1,6 @@
+using ChatApp.API.Commons;
 using ChatApp.API.Filters;
+using ChatApp.Application.Commons.Exceptions;
 using ChatApp.Application.Features.Commands.Register;
 using CQRS;
 using Microsoft.AspNetCore.Authorization;
@@ -29,8 +31,22 @@ namespace ChatApp.API.Controllers
             CancellationToken ct
         )
         {
-            var me = await _commandDispatcher.DispatchAsync(cmd, ct);
-            return Ok(cmd);
+            try
+            {
+                var res = await _commandDispatcher.DispatchAsync(cmd, ct);
+                return Ok();
+            }
+            catch (DuplicateEmailException ex)
+            {
+                ApiErrorResponse response = new(HttpContext)
+                {
+                    Title = "Duplicate Email",
+                    Status = StatusCodes.Status409Conflict,
+                    Type = "about:blank",
+                    Detail = ex.Message,
+                };
+                return Conflict(response);
+            }
         }
     }
 }

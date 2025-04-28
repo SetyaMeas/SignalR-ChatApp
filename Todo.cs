@@ -5,8 +5,8 @@
 // TODO set up fluentvalidation
 // TODO Filter Validation Attribute
 // TODO setup password hashing
-// TODO: jwt
-// TODO: implement jwtprovider, user context
+// TODO jwt
+// TODO implement jwtprovider, user context
 // TODO: start build authentication feature
 
 /* <=> features */

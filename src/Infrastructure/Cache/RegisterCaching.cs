@@ -41,7 +41,7 @@ namespace ChatApp.Infrastucture.Cache
             await _cachingRepo.SetAsync<RegisterCachingDTO>(
                 key,
                 value,
-                TimeSpan.FromMinutes(2),
+                TimeSpan.FromMinutes(5),
                 cancellationToken
             );
         }

@@ -32,7 +32,7 @@ namespace ChatApp.Infrastucture.Auth
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = tokenCredential.ToClaims(),
-                Expires = DateTime.UtcNow.AddMinutes(3),
+                Expires = tokenCredential.ExpiredAt,
                 SigningCredentials = credential,
             };
 

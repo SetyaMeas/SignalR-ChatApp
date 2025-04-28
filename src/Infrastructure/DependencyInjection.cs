@@ -2,6 +2,7 @@ using ChatApp.Application.Commons.Interfaces;
 using ChatApp.Infrastucture.Auth;
 using ChatApp.Infrastucture.Cache;
 using ChatApp.Infrastucture.Persistence.Context;
+using ChatApp.Infrastucture.Services;
 using FluentEmail.MailKitSmtp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -109,6 +110,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IRegisterCaching, RegisterCaching>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddSingleton<IJwtProvider, JwtProvider>();
+            services.AddSingleton<IVerifyCodeGenerator, VerifyCodeGenerator>();
 
             services.AddScoped<ICookieService, CookieService>();
             services.AddScoped<IUserContext, UserContext>();
