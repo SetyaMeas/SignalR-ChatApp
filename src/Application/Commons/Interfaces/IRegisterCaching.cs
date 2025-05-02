@@ -6,7 +6,7 @@ namespace ChatApp.Application.Commons.Interfaces
     public interface IRegisterCaching
     {
         Task<RegisterCachingDTO?> GetBykeyAsync(
-            Guid guid,
+            string key,
             CancellationToken cancellationToken = default
         );
         Task SetAsync(
@@ -14,6 +14,6 @@ namespace ChatApp.Application.Commons.Interfaces
             RegisterCachingDTO value,
             CancellationToken cancellationToken = default
         );
-        Task RemoveAsync(Guid guid, CancellationToken cancellationToken = default);
+        Task RemoveAsync(string key, CancellationToken cancellationToken = default);
     }
 }

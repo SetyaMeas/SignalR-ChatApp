@@ -1,6 +1,6 @@
 using ChatApp.Application.Commons.Interfaces;
-using Microsoft.AspNetCore.Http;
 using ChatApp.Domain.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace ChatApp.Infrastucture.Auth
 {
@@ -28,6 +28,19 @@ namespace ChatApp.Infrastucture.Auth
                     Expires = expiredAt,
                 }
             );
+        }
+
+        public string? Get(CookieEnum key)
+        {
+            if (_httpContextAccessor.HttpContext is not null)
+            {
+                _httpContextAccessor.HttpContext.Request.Cookies.TryGetValue(
+                    key.ToString(),
+                    out var result
+                );
+                return result;
+            }
+            return null;
         }
 
         public void Delete(CookieEnum key)

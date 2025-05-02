@@ -71,6 +71,7 @@ namespace ChatApp.Application.Features.Commands.Register
                     Salt = salt,
                     Email = command.Email,
                     VerificationCode = verifyCode,
+                    Username = command.Username
                 }
             );
 

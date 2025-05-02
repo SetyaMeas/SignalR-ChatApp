@@ -7,7 +7,12 @@
 // TODO setup password hashing
 // TODO jwt
 // TODO implement jwtprovider, user context
-// TODO: start build authentication feature
+//
+// TODO start build authentication feature
+// TODO: register
+// TODO: verify register
+// TODO: login
+// TODO: logout
 
 /* <=> features */
 /* - register */

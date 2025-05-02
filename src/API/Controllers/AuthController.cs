@@ -2,6 +2,7 @@ using ChatApp.API.Commons;
 using ChatApp.API.Filters;
 using ChatApp.Application.Commons.Exceptions;
 using ChatApp.Application.Features.Commands.Register;
+using ChatApp.Application.Features.Commands.RegisterVerification;
 using CQRS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,9 @@ namespace ChatApp.API.Controllers
             _queryDispatcher = queryDispatcher;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         [ServiceFilter(typeof(ValidationFilter))]
-        public async Task<IActionResult> Testing(
+        public async Task<IActionResult> Register(
             [FromBody] RegisterCommand cmd,
             CancellationToken ct
         )
@@ -46,6 +47,42 @@ namespace ChatApp.API.Controllers
                     Detail = ex.Message,
                 };
                 return Conflict(response);
+            }
+        }
+
+        [HttpPost("register-verification")]
+        public async Task<IActionResult> RegisterVerification(
+            [FromBody] RegisterVerificationCmd cmd
+        )
+        {
+            try
+            {
+                bool res = await _commandDispatcher.DispatchAsync(cmd);
+                if (!res)
+                {
+                    return Unauthorized(
+                        new ApiErrorResponse(HttpContext)
+                        {
+                            Type = "about:blank",
+                            Title = "Unauthorized",
+                            Status = StatusCodes.Status401Unauthorized,
+                            Detail = "Verification Code doesn't match",
+                        }
+                    );
+                }
+                return Ok();
+            }
+            catch (DuplicateEmailException ex)
+            {
+                return Conflict(
+                    new ApiErrorResponse(HttpContext)
+                    {
+                        Type = "about:blank",
+                        Title = "Duplicate Email",
+                        Status = StatusCodes.Status409Conflict,
+                        Detail = ex.Message,
+                    }
+                );
             }
         }
     }

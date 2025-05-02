@@ -13,22 +13,20 @@ namespace ChatApp.Infrastucture.Cache
         }
 
         public async Task<RegisterCachingDTO?> GetBykeyAsync(
-            Guid guid,
+            string key,
             CancellationToken cancellationToken = default
         )
         {
-            string key = $"register-{guid}";
             var value = await _cachingRepo.GetByKeyAsync<RegisterCachingDTO>(
-                key,
+                $"register-{key}",
                 cancellationToken
             );
             return value;
         }
 
-        public async Task RemoveAsync(Guid guid, CancellationToken cancellationToken = default)
+        public async Task RemoveAsync(string key, CancellationToken cancellationToken = default)
         {
-            string key = $"register-{guid}";
-            await _cachingRepo.RemoveAsync(key, cancellationToken);
+            await _cachingRepo.RemoveAsync($"register-{key}", cancellationToken);
         }
 
         public async Task SetAsync(

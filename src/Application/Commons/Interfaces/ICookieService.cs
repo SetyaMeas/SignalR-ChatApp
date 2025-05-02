@@ -7,5 +7,6 @@ namespace ChatApp.Application.Commons.Interfaces
     {
         void Append(CookieEnum key, string value, DateTime expiredAt);
         void Delete(CookieEnum key);
+        string? Get(CookieEnum key);
     }
 }
