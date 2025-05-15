@@ -6,7 +6,7 @@ namespace ChatApp.Application.Commons.DTOs
     {
         public required int Id { get; init; }
         public required string Email { get; init; }
-        public DateTime ExpiredAt { get; } = DateTime.UtcNow.AddMinutes(3);
+        public DateTime ExpiredAt { get; } = DateTime.UtcNow.AddMinutes(10);
 
         public ClaimsIdentity ToClaims()
         {

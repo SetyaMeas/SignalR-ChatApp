@@ -1,6 +1,7 @@
 using ChatApp.API.Commons;
 using ChatApp.API.Filters;
 using ChatApp.Application.Commons.Exceptions;
+using ChatApp.Application.Features.Commands.Login;
 using ChatApp.Application.Features.Commands.Register;
 using ChatApp.Application.Features.Commands.RegisterVerification;
 using CQRS;
@@ -51,6 +52,7 @@ namespace ChatApp.API.Controllers
         }
 
         [HttpPost("register-verification")]
+        [ServiceFilter(typeof(ValidationFilter))]
         public async Task<IActionResult> RegisterVerification(
             [FromBody] RegisterVerificationCmd cmd
         )
@@ -84,6 +86,27 @@ namespace ChatApp.API.Controllers
                     }
                 );
             }
+        }
+
+        [HttpPost("login")]
+        [ServiceFilter(typeof(ValidationFilter))]
+        public async Task<IActionResult> Login([FromBody] LoginCmd cmd, CancellationToken ct)
+        {
+            // TODO: test this before pushing
+            bool res = await _commandDispatcher.DispatchAsync(cmd, ct);
+            if (!res)
+            {
+                return Unauthorized(
+                    new ApiErrorResponse(HttpContext)
+                    {
+                        Type = "about:blank",
+                        Title = "Unauthorized",
+                        Status = StatusCodes.Status401Unauthorized,
+                        Detail = "Invalid email or password",
+                    }
+                );
+            }
+            return Ok();
         }
     }
 }

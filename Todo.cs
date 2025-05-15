@@ -9,9 +9,9 @@
 // TODO implement jwtprovider, user context
 //
 // TODO start build authentication feature
-// TODO: register
-// TODO: verify register
-// TODO: login
+// TODO register
+// TODO verify register
+// TODO login
 // TODO: logout
 
 /* <=> features */

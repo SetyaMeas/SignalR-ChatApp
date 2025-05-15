@@ -4,11 +4,11 @@ namespace CQRS
 {
     public class QueryDispatcher : IQueryDispatcher
     {
-        private readonly IServiceProvider serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
 
         public QueryDispatcher(IServiceProvider serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider;
         }
 
         public Task<TResult> DispatchAsync<TResult>(
@@ -16,10 +16,13 @@ namespace CQRS
             CancellationToken cancellationToken = default
         )
         {
-            var handler = serviceProvider.GetRequiredService<
-                IQueryHandler<IQuery<TResult>, TResult>
-            >();
-            return handler.HandleAsync(query, cancellationToken);
+            var handlerType = typeof(IQueryHandler<,>).MakeGenericType(
+                query.GetType(),
+                typeof(TResult)
+            );
+
+            dynamic handler = _serviceProvider.GetRequiredService(handlerType);
+            return handler.HandleAsync((dynamic)query, cancellationToken);
         }
     }
 }

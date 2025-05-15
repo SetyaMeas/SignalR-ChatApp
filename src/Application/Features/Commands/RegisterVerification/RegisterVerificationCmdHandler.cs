@@ -32,7 +32,7 @@ namespace ChatApp.Application.Features.Commands.RegisterVerification
             CancellationToken cancellationToken = default
         )
         {
-            var cacheId = _cookieService.Get(CookieEnum.REGISTER_ID);
+            var cacheId = _cookieService.Get(CookieEnum.REGISTER_TOKEN);
             if (cacheId is null)
             {
                 return false;
@@ -64,7 +64,7 @@ namespace ChatApp.Application.Features.Commands.RegisterVerification
             await _applicationDbContext.SaveChangesAsync();
 
             await _registerCaching.RemoveAsync(cacheId);
-            _cookieService.Delete(CookieEnum.REGISTER_ID);
+            _cookieService.Delete(CookieEnum.REGISTER_TOKEN);
             return true;
         }
     }

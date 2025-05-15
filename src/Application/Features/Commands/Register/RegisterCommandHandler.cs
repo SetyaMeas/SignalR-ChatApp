@@ -76,7 +76,7 @@ namespace ChatApp.Application.Features.Commands.Register
             );
 
             _cookieService.Append(
-                CookieEnum.REGISTER_ID,
+                CookieEnum.REGISTER_TOKEN,
                 cacheId.ToString(),
                 DateTime.UtcNow.AddMinutes(5)
             );
