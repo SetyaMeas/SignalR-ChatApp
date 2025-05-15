@@ -4,6 +4,7 @@ using ChatApp.Application.Commons.Exceptions;
 using ChatApp.Application.Features.Commands.Login;
 using ChatApp.Application.Features.Commands.Register;
 using ChatApp.Application.Features.Commands.RegisterVerification;
+using ChatApp.Application.Features.Logout;
 using CQRS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -106,6 +107,14 @@ namespace ChatApp.API.Controllers
                     }
                 );
             }
+            return Ok();
+        }
+
+        [HttpPut("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            bool res = await _commandDispatcher.DispatchAsync(new LogoutCmd());
             return Ok();
         }
     }

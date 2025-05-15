@@ -12,7 +12,9 @@
 // TODO register
 // TODO verify register
 // TODO login
-// TODO: logout
+// TODO logout
+//
+// TODO: chat feature
 
 /* <=> features */
 /* - register */
